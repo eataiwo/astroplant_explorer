@@ -31,13 +31,11 @@ class AE_DS18B20(_AE_Peripheral_Base):
     def _read_temp_raw(self):
         f = open(device_file, 'r')
         lines = f.readlines()
-        print('Lines were read in _read_temp_raw() func')
         f.close()
         return lines
 
     def _read_temp(self):
         lines = self._read_temp_raw()
-        print(f'lines are {lines}')
         while lines[0].strip()[-3:] != 'YES':
             time.sleep(0.2)
             lines = self._read_temp_raw()
