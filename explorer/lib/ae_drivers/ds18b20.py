@@ -14,6 +14,8 @@ import time
 import os
 import glob
 
+DEBUG = 1  # Normally on 0. Non zero enable debug code/exceptions
+
 os.system('modprobe w1-gpio')
 os.system('modprobe w1-therm')
 base_dir = '/sys/bus/w1/devices/'
@@ -51,11 +53,16 @@ class AE_DS18B20(_AE_Peripheral_Base):
         """
         try:
             return self._read_temp()
-        except Exception:
+        except Exception as ex:
+            if DEBUG:
+                raise ex
             return None
 
     def _str_details(self):
-        return 'values=%s' % (str(self.value()))
+        """Some more default into the __str__ dunder form the base class
+        """
+        return 'device=%s, value=%s ppm' % (self._device,
+                                            self.value())
 
     def setup(self, **kwarg):
         # One throw away reads to get things going...
