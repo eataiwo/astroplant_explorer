@@ -17,7 +17,11 @@ def main(addr=DEVICE):
     for i in range(0, 11):
         bus.write_byte_data(addr, 0x06, 0)
         data = bus.read_i2c_block_data(addr, 0x06, 2)
-        print(data)
+        test = b'\x02\xBC'
+        print(f'test is {test[0]} and test{[1]}')
+        co2 = int.from_bytes(test, byteorder='big', signed=True)
+        print(f' co2 is {co2}')
+        print(f' raw data is {data}')
         sleep(1)
 
 
