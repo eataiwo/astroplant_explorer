@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 import smbus
-import time
+from time import sleep
 from ctypes import c_short
 from ctypes import c_byte
 from ctypes import c_ubyte
