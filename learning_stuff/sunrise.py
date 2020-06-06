@@ -13,9 +13,10 @@ bus = smbus.SMBus(1)  # Rev 2 Pi, Pi 2 & Pi 3 uses bus 1
 REG_CO2_DATA = 0x06
 
 
-def main():
+def main(addr=DEVICE):
     for i in range(0, 11):
-        data = bus.read_i2c_block_data(addr, 0x06, 2)
+        bus.write_byte_data(addr, 0x9D, 0)
+        data = bus.read_i2c_block_data(addr, 0x00, 2)
         print(data)
         sleep(1)
 
